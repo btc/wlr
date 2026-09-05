@@ -1,0 +1,265 @@
+<title>WHOLE LOTTA RED — WLR for macOS</title>
+
+<style>
+  /* ============================================================
+     THREE HEADLINES. Nothing else gets display type.
+       1  WHOLE LOTTA RED   red ground, black ink
+       2  RED GANG          black ground, red ink
+       3  STAY BOOL         red ground, black ink
+
+     No body copy. The swatches are the argument; the spec strip
+     is the manual. Anything that read as ad copy is gone.
+
+     TYPE LANGUAGE
+       DISPLAY  Impact, uppercase, viewport-scale, -0.03em, 0.74
+       FINE     Courier New, uppercase, +0.22em
+
+     Single world. Black on #FF1A24 is 5.4:1.
+     ============================================================ */
+  :root {
+    --red:   #FF1A24;
+    --ink:   #0A0708;
+    --paper: #FFF6F0;
+
+    --display: Impact, Haettenschweiler, "Arial Narrow Bold", "Futura Condensed ExtraBold", sans-serif;
+    --fine: "Courier New", Courier, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--red);
+    color: var(--ink);
+    font-family: var(--fine);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  p { margin: 0; }
+  a { color: inherit; }
+  a:focus-visible, input:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+  .wide { width: min(100% - 1.5rem, 1280px); margin-inline: auto; }
+
+  /* ---------- the only display type on the page ---------- */
+  .head {
+    font-family: var(--display);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: -.03em;
+    line-height: .74;
+    margin: 0;
+    font-size: clamp(4.4rem, 22vw, 20rem);
+  }
+  .head span { display: block; }
+
+  .fine {
+    font-family: var(--fine);
+    font-size: .7rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+  }
+
+  /* ---------- rail ---------- */
+  .rail {
+    position: sticky; top: 0; z-index: 60;
+    background: var(--ink); color: var(--red);
+    border-bottom: 5px solid var(--red);
+  }
+  .rail-inner {
+    display: flex; align-items: center; gap: 1.3rem; flex-wrap: wrap;
+    padding: .45rem 0;
+  }
+  .rail-tag {
+    font-size: .72rem; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--paper); margin-right: auto;
+  }
+  .ctrl { display: flex; align-items: center; gap: .5rem; }
+  .ctrl label {
+    font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: var(--red);
+  }
+  .ctrl input[type=range] { width: 112px; accent-color: var(--red); }
+  .readout {
+    font-size: .66rem; letter-spacing: .12em;
+    font-variant-numeric: tabular-nums; color: var(--paper); white-space: nowrap;
+  }
+  .readout b { color: var(--red); font-weight: 400; }
+
+  /* ---------- slabs ---------- */
+  .slab-red   { background: var(--red); color: var(--ink); }
+  .slab-black { background: var(--ink); color: var(--red); }
+
+  .hero { padding: clamp(1.2rem, 3.5vw, 2.4rem) 0 clamp(1.6rem, 4.5vw, 2.8rem); }
+  .bar { height: 14px; background: var(--ink); margin: .9rem 0 0; }
+
+  .beat { padding: clamp(2.6rem, 8.5vw, 6rem) 0; overflow: hidden; }
+  .beat .head { text-align: center; }
+
+  section { padding: clamp(1.6rem, 4.5vw, 2.8rem) 0; }
+  .stack { display: flex; flex-direction: column; gap: .5rem; }
+
+  /* ---------- specimens ---------- */
+  .plate { background: var(--paper); padding: .7rem; }
+  .swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); gap: .25rem; }
+  .sw-chip { height: clamp(66px, 9.5vw, 118px); }
+  .sw-name {
+    font-size: .55rem; letter-spacing: .12em; text-transform: uppercase;
+    text-align: center; padding: .28rem .1rem; color: #6E6465;
+  }
+  .spectrum {
+    height: clamp(60px, 9.5vw, 112px);
+    background: linear-gradient(90deg,
+      #FF0000, #FF8A00, #FFE500, #35D63A, #00C7C7, #0A84FF, #6E4BFF, #E040FB, #FF0055);
+  }
+
+  /* ---------- spec strip ---------- */
+  .spec { background: var(--ink); color: var(--paper); }
+  .spec dl {
+    margin: 0; display: grid; grid-template-columns: max-content 1fr;
+    gap: .55rem 1.8rem; padding: 1.15rem 1.2rem;
+    font-size: .78rem; letter-spacing: .1em;
+  }
+  .spec dt { color: var(--red); text-transform: uppercase; letter-spacing: .2em; font-size: .68rem; align-self: center; }
+  .spec dd { margin: 0; white-space: nowrap; overflow-x: auto; }
+
+  .filter-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  }
+</style>
+
+<svg class="filter-defs" aria-hidden="true">
+  <defs>
+    <filter id="wlr" color-interpolation-filters="sRGB">
+      <feColorMatrix id="wlr-matrix" type="matrix"
+        values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0" />
+    </filter>
+  </defs>
+</svg>
+
+<div class="rail">
+  <div class="wide rail-inner">
+    <span class="rail-tag">WLR</span>
+    <span class="ctrl">
+      <label for="removal">G+B</label>
+      <input type="range" id="removal" min="0" max="100" value="0" step="1" aria-label="Green and blue removal" />
+    </span>
+    <span class="ctrl">
+      <label for="red">R</label>
+      <input type="range" id="red" min="15" max="100" value="100" step="1" aria-label="Red level" />
+    </span>
+    <span class="readout" id="readout">R&nbsp;<b>1.00</b>&nbsp; G&nbsp;<b>1.00</b>&nbsp; B&nbsp;<b>1.00</b></span>
+  </div>
+</div>
+
+<main id="page">
+
+  <!-- 1 -->
+  <section class="hero slab-red">
+    <div class="wide">
+      <h1 class="head"><span>Whole</span><span>Lotta</span><span>Red</span></h1>
+      <div class="bar"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wide stack">
+      <div class="plate"><div class="spectrum"></div></div>
+      <div class="plate">
+        <div class="swatches">
+          <div><div class="sw-chip" style="background:#0A84FF"></div><div class="sw-name">blue</div></div>
+          <div><div class="sw-chip" style="background:#30D158"></div><div class="sw-name">green</div></div>
+          <div><div class="sw-chip" style="background:#40C8E0"></div><div class="sw-name">cyan</div></div>
+          <div><div class="sw-chip" style="background:#FFD60A"></div><div class="sw-name">yellow</div></div>
+          <div><div class="sw-chip" style="background:#BF5AF2"></div><div class="sw-name">magenta</div></div>
+          <div><div class="sw-chip" style="background:#FF453A"></div><div class="sw-name">red</div></div>
+          <div><div class="sw-chip" style="background:#F2F2F7"></div><div class="sw-name">white</div></div>
+          <div><div class="sw-chip" style="background:#8E8E93"></div><div class="sw-name">grey</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <div class="beat slab-black">
+    <div class="wide"><span class="head">Red gang</span></div>
+  </div>
+
+  <section>
+    <div class="wide">
+      <div class="spec">
+        <dl>
+          <dt>Toggle</dt>   <dd>⌃⌥⌘R</dd>
+          <dt>Install</dt>  <dd>make install</dd>
+          <dt>Requires</dt> <dd>macOS 13+ · Apple silicon</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <div class="beat slab-red">
+    <div class="wide"><span class="head">Stay bool</span></div>
+  </div>
+
+</main>
+
+<script>
+  (function () {
+    var matrix  = document.getElementById('wlr-matrix');
+    var page    = document.getElementById('page');
+    var removal = document.getElementById('removal');
+    var red     = document.getElementById('red');
+    var readout = document.getElementById('readout');
+
+    function apply(removalPct, redPct) {
+      var gb = 1 - removalPct / 100;
+      var r  = redPct / 100;
+
+      matrix.setAttribute('values',
+        r + ' 0 0 0 0  0 ' + gb + ' 0 0 0  0 0 ' + gb + ' 0 0  0 0 0 1 0');
+
+      var identity = removalPct === 0 && redPct === 100;
+      page.style.filter = identity ? 'none' : 'url(#wlr)';
+
+      readout.innerHTML =
+        'R&nbsp;<b>' + r.toFixed(2)  + '</b>&nbsp; ' +
+        'G&nbsp;<b>' + gb.toFixed(2) + '</b>&nbsp; ' +
+        'B&nbsp;<b>' + gb.toFixed(2) + '</b>';
+    }
+
+    function fromInputs() {
+      apply(parseInt(removal.value, 10), parseInt(red.value, 10));
+    }
+
+    removal.addEventListener('input', fromInputs);
+    red.addEventListener('input', fromInputs);
+
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduced) {
+      var start = null, DURATION = 3000, PEAK = 100;
+      var ease = function (t) { return t * t * (3 - 2 * t); };
+
+      var step = function (now) {
+        if (start === null) start = now;
+        var t = (now - start) / DURATION;
+        if (t >= 1) { removal.value = 0; fromInputs(); return; }
+
+        var v;
+        if (t < 0.34)      v = ease(t / 0.34) * PEAK;
+        else if (t < 0.70) v = PEAK;
+        else               v = PEAK * (1 - ease((t - 0.70) / 0.30));
+
+        removal.value = Math.round(v);
+        fromInputs();
+        requestAnimationFrame(step);
+      };
+
+      setTimeout(function () { requestAnimationFrame(step); }, 550);
+    }
+
+    fromInputs();
+  })();
+</script>
